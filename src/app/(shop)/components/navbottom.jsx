@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Home, MessageCircle, ShoppingCart, User, Percent } from "lucide-react";
+import { Home, MessageCircle, ShoppingCart, User, Percent, Package } from "lucide-react";
 import { useAuthStore } from "@/app/(shop)/store/useAuthStore";
 import { useCartStore } from "@/app/(shop)/store/useCartStore";
 
@@ -29,13 +29,14 @@ const cartItemsCount = cart?.items?.reduce((acc, item) => acc + (item.qty || 0),
         <span className={`text-[10px] mt-1 ${pathname === '/' ? 'font-bold' : ''}`}>الرئيسية</span>
       </div>
 
-      {/* واتساب */}
+    
+      {/* طلباتي */}
       <div 
-        onClick={openWhatsApp}
-        className="flex flex-col items-center text-gray-400 cursor-pointer hover:text-green-500"
+        onClick={() => router.push('/orders')}
+        className={`flex flex-col items-center cursor-pointer ${pathname === '/orders' ? 'text-red-600' : 'text-gray-400'}`}
       >
-        <MessageCircle size={24} />
-        <span className="text-[10px] mt-1">تواصل معنا</span>
+        <Package size={24} />
+        <span className={`text-[10px] mt-1 ${pathname === '/orders' ? 'font-bold' : ''}`}>طلباتي</span>
       </div>
 
       {/* زر السلة */}
@@ -69,6 +70,7 @@ const cartItemsCount = cart?.items?.reduce((acc, item) => acc + (item.qty || 0),
         <Percent size={24} />
         <span className={`text-[10px] mt-1 ${pathname === '/offers' ? 'font-bold' : ''}`}>العروض</span>
       </div>
+
 
       {/* الحساب / تسجيل خروج */}
       {isAuthenticated ? (

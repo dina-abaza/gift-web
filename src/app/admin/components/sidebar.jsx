@@ -9,6 +9,7 @@ import {
   Share2,
   LogOut,
   X,
+  Package
 } from "lucide-react";
 import { useAdminAuthStore } from "../store/useAdminAuthStore";
 
@@ -20,6 +21,7 @@ export default function AdminSidebar({ disabled, isOpen, setIsOpen }) {
     { name: "الرئيسية", href: "/admin", icon: LayoutDashboard, color: "#ef4444" },
     { name: "الأقسام", href: "/admin/categories", icon: Tags, color: "#22c55e" },
     { name: "المنتجات", href: "/admin/products", icon: PackageSearch, color: "#3b82f6" },
+    { name: "الطلبات", href: "/admin/orders", icon: Package, color: "#f97316" },
     { name: "السوشيال", href: "/admin/social", icon: Share2, color: "#a855f7" },
   ];
 

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ShoppingCart, Percent, Search } from "lucide-react";
+import { ShoppingCart, Percent, Search, Package } from "lucide-react";
 import { useAuthStore } from "@/app/(shop)/store/useAuthStore";
 import { useCartStore } from "@/app/(shop)/store/useCartStore";
 import api from "@/app/api";
@@ -83,6 +83,11 @@ const Navbar = () => {
             <Link href="/offers" className="flex flex-col items-center group hover:scale-105 transition-all duration-300">
               <Percent size={22} className="group-hover:text-red-600 transition-colors" />
               <span className="text-xs font-bold group-hover:text-red-600 transition-colors">العروض</span>
+            </Link>
+
+            <Link href="/orders" className="flex flex-col items-center group hover:scale-105 transition-all duration-300">
+              <Package size={22} className="group-hover:text-red-600 transition-colors" />
+              <span className="text-xs font-bold group-hover:text-red-600 transition-colors">طلباتي</span>
             </Link>
 
             <Link href="/cart" className="relative flex flex-col items-center group hover:scale-105 transition-all duration-300">
