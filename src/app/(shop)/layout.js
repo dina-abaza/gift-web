@@ -5,6 +5,7 @@ import Navbar from "./components/navbar";
 import NavBottom from "./components/navbottom"; 
 import Footer from "./components/footer";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function ShopLayout({ children }) {
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}>
         <Providers>
           <Navbar />
+    
           <main className="min-h-screen">
             {children}
           </main>

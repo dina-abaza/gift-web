@@ -147,10 +147,10 @@ const Navbar = () => {
           {/* اللوجو – نفس كودك */}
           <Link
             href="/"
-            className="flex-shrink-0 w-14 h-14 md:w-20 md:h-20 overflow-hidden flex items-center justify-center"
+            className="flex-shrink-0 w-20 h-20 md:w-20 md:h-20 overflow-hidden flex items-center justify-center"
           >
             <img
-              src="/logo.png"
+              src="/logo2.png"
               alt="Logo"
               className="w-full h-full object-contain scale-[2.2] mix-blend-multiply"
             />
