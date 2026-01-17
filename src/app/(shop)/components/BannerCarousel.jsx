@@ -1,25 +1,14 @@
 "use client";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import styles from "./BannerCarousel.module.css";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function BannerCarousel() {
   const slides = useMemo(
     () => [
-      {
-        src: "/بانر.jpg",
-        brand: "هدايا راقية",
-        title: "قصّة تُهدى",
-        subtitle:
-          "اختيارات فاخرة تليق بالمناسبات الخاصة وتعكس ذوقكم الرفيع",
-      },
-      {
-        src: "/بانر2.jpg",
-        brand: "إكسسوارات الهدايا",
-        title: "لحظات لا تُنسى",
-        subtitle:
-          "صُنعت بعناية لتصبح تذكارًا مميزًا لكل من تحب",
-      },
+      { src: "/banner1.jpg", brand: "هدايا راقية", title: "قصّة تُهدى", subtitle: "اختيارات فاخرة تليق بالمناسبات الخاصة وتعكس ذوقكم الرفيع" },
+      { src: "/banner2.jpg", brand: "إكسسوارات الهدايا", title: "لحظات لا تُنسى", subtitle: "صُنعت بعناية لتصبح تذكارًا مميزًا لكل من تحب" },
+      { src: "/banner3.jpg", brand: "عروض đặc biệt", title: "سعر مناسب", subtitle: "احصل على أفضل العروض وخصومات على هداياك المفضلة" },
     ],
     []
   );
@@ -46,82 +35,42 @@ export default function BannerCarousel() {
     stopAutoPlay();
     setIndex(i);
   };
-  const next = () => goTo((index + 1) % slides.length);
-  const prev = () => goTo((index - 1 + slides.length) % slides.length);
+
+ 
 
   return (
-    <section
-      className={`${styles.carouselRoot} relative mx-auto mt-4 md:mt-6`}
-      style={{
-        height: "min(70vh, 620px)",
-      }}
-      aria-label="بانر عروض وهدايا المتجر"
-      onMouseEnter={stopAutoPlay}
-      onMouseLeave={startAutoPlay}
-    >
-      {slides.map((s, i) => (
-        <div
-          key={s.src}
-          className={`${styles.slide} ${i === index ? styles.slideActive : ""}`}
+    <section className="relative mx-auto mt-4 md:mt-6 overflow-hidden rounded-2xl" style={{ height: "min(70vh, 620px)" }}>
+      {/* Stack all slides */}
+      {slides.map((slide, i) => (
+        <motion.div
+          key={slide.src}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: i === index ? 1 : 0 }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
+          className="absolute inset-0"
         >
-          <div style={{ position: "absolute", inset: 0 }}>
-            <Image
-              src={s.src}
-              alt={s.title}
-              fill
-              priority={i === 0}
-              fetchPriority={i === 0 ? "high" : "auto"}
-              sizes="(max-width: 768px) 100vw, 100vw"
-              className={styles.slideImg}
-            />
-          </div>
-
-          <div className={styles.overlay}>
-            <div className={styles.contentWrap}>
-              <span className={`${styles.brandTag} text-xs md:text-sm uppercase tracking-widest`}>
-                {s.brand}
-              </span>
-              <h2 className={styles.title3D}>
-                <span className={styles.titleInner}>{s.title}</span>
-              </h2>
-              <p className={`${styles.subtitle}`}>
-                {s.subtitle}
-              </p>
+          <Image src={slide.src} alt={slide.title} fill className="object-cover" priority={i===0} />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent flex items-center">
+            <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: i === index ? 1 : 0, y: i === index ? 0 : 20 }}
+                transition={{ duration: 1, ease: "easeInOut" }}
+              >
+                <span className="inline-block text-xs md:text-sm uppercase tracking-widest text-white mb-4 bg-amber-500/20 backdrop-blur-sm px-4 py-1 rounded-full">{slide.brand}</span>
+                <h2 className="text-[clamp(2rem,5vw,4rem)] font-bold text-white mb-4 leading-tight">{slide.title}</h2>
+                <p className="text-[clamp(1rem,2vw,1.25rem)] text-gray-100 max-w-2xl">{slide.subtitle}</p>
+              </motion.div>
             </div>
           </div>
-        </div>
+        </motion.div>
       ))}
 
-      <button
-        className={`${styles.arrow} ${styles.left}`}
-        onClick={prev}
-        aria-label="السابق"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M15 6l-6 6 6 6" stroke="#1f2937" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </button>
 
-      <button
-        className={`${styles.arrow} ${styles.right}`}
-        onClick={next}
-        aria-label="التالي"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M9 6l6 6-6 6" stroke="#1f2937" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </button>
-
-      <div className={styles.controls} role="tablist" aria-label="الشرائح">
+      {/* Dots */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-3">
         {slides.map((_, i) => (
-          <button
-            key={i}
-            role="tab"
-            aria-selected={i === index}
-            aria-label={`ذهاب إلى الشريحة ${i + 1}`}
-            className={`${styles.dot} ${i === index ? styles.dotActive : ""}`}
-            onClick={() => goTo(i)}
-          />
+          <button key={i} onClick={() => goTo(i)} className={`transition-all duration-500 ease-out h-3 rounded-full ${i===index ? 'w-12 bg-white':'w-3 bg-white/50 hover:bg-white/80'}`} aria-label={`اذهب إلى الشريحة ${i+1}`}/>
         ))}
       </div>
     </section>

@@ -1,6 +1,8 @@
 
 import CategoryGrid from "./components/categoriesgrid";
 import BannerCarousel from "./components/BannerCarousel";
+import OffersCarousel from "./components/OffersCarousel";
+import ReviewsComponent from "./components/ReviewsComponent";
 
 
 export default function Home() {
@@ -12,6 +14,8 @@ export default function Home() {
       <div>
         <CategoryGrid />
       </div>
+      <OffersCarousel />
+      <ReviewsComponent />
     </main>
   );
 }

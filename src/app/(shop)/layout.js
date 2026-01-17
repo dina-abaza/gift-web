@@ -58,7 +58,6 @@ export default function ShopLayout({ children }) {
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}>
         <Providers>
           <Navbar />
-    
           <main className="min-h-screen">
             {children}
           </main>

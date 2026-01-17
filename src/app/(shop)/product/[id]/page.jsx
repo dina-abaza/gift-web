@@ -5,7 +5,7 @@ import api from "@/app/api";
 import { toast } from "react-toastify";
 import Activity from "@/app/loading";
 import { reviewService } from "@/app/services/reviewservice";
-import { CornerDownLeft } from "lucide-react";
+import { CornerDownLeft, ArrowRight } from "lucide-react";
 import Script from "next/script";
 import Image from "next/image";
 
@@ -16,17 +16,14 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // حالات المراجعات
   const [reviews, setReviews] = useState([]);
   const [stats, setStats] = useState([]);
   const [average, setAverage] = useState({ average: 0, count: 0 });
   const [reviewsLoading, setReviewsLoading] = useState(true);
 
-  // حالات نموذج المراجعة الجديدة
   const [newReview, setNewReview] = useState({ rating: 5, comment: "" });
   const [submitting, setSubmitting] = useState(false);
 
-  // 1. جلب بيانات المنتج الأساسية (كودك الأصلي)
   useEffect(() => {
     const fetchProductData = async () => {
       try {
@@ -43,7 +40,6 @@ const ProductDetails = () => {
     if (id) fetchProductData();
   }, [id]);
 
-  // 2. جلب المراجعات والإحصائيات
   const fetchReviewData = async () => {
     try {
       setReviewsLoading(true);
@@ -52,7 +48,6 @@ const ProductDetails = () => {
         reviewService.getStats(id),
         reviewService.getAverage(id),
       ]);
-console.log("SHOP REVIEWS RESPONSE:", revRes.data);
       setReviews(revRes.data.reviews);
       setStats(statsRes.data);
       if (avgRes.data.length > 0) setAverage(avgRes.data[0]);
@@ -67,7 +62,6 @@ console.log("SHOP REVIEWS RESPONSE:", revRes.data);
     if (id) fetchReviewData();
   }, [id]);
 
-  // 3. إرسال مراجعة جديدة
   const handleSubmitReview = async (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -75,7 +69,7 @@ console.log("SHOP REVIEWS RESPONSE:", revRes.data);
       await reviewService.add({ productId: id, ...newReview });
       toast.success("تم إضافة تقييمك بنجاح");
       setNewReview({ rating: 5, comment: "" });
-      fetchReviewData(); // تحديث القائمة فوراً
+      fetchReviewData();
     } catch (error) {
       toast.error(error.response?.data?.message || "فشل الإرسال، تأكد من تسجيل الدخول وشراء المنتج");
     } finally {
@@ -89,13 +83,9 @@ console.log("SHOP REVIEWS RESPONSE:", revRes.data);
   const hasDiscount = product.discountActive && product.discountPrice < product.price;
 
   return (
-    <div className="bg-white min-h-screen pb-24" dir="rtl">
+    <div className="bg-[#f8f8f8] min-h-screen pb-24" dir="rtl">
       {product && (
-        <Script
-          id="jsonld-product"
-          type="application/ld+json"
-          strategy="afterInteractive"
-        >
+        <Script id="jsonld-product" type="application/ld+json" strategy="afterInteractive">
           {JSON.stringify({
             "@context": "https://schema.org/",
             "@type": "Product",
@@ -111,8 +101,24 @@ console.log("SHOP REVIEWS RESPONSE:", revRes.data);
           })}
         </Script>
       )}
+
+      {/* عنوان القسم */}
+      <div className="bg-white/90 backdrop-blur-md sticky top-0 p-4 shadow-sm border-b border-gray-100 z-10">
+        <div className="max-w-7xl mx-auto flex items-center justify-center relative">
+          <button 
+            onClick={() => router.back()} 
+            className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-md hover:bg-red-700 transition-colors"
+            aria-label="رجوع"
+          >
+            <ArrowRight size={20} />
+          </button>
+          <h1 className="text-red-600 font-extrabold text-xl md:text-2xl">{product.category?.name || "المنتجات"}</h1>
+        </div>
+      </div>
+
       <div className="max-w-2xl mx-auto px-6 mt-6 flex flex-col items-center text-center">
-        <div className="relative w-full max-w-sm h-64 mb-4">
+        {/* الصورة أكبر */}
+        <div className="relative w-full max-w-md h-80 mb-4 rounded-2xl overflow-hidden shadow-md">
           <Image
             src={product.image}
             alt={product.name}
@@ -121,46 +127,40 @@ console.log("SHOP REVIEWS RESPONSE:", revRes.data);
             fetchPriority="high"
             quality={80}
             sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-contain"
+            className="object-cover"
           />
         </div>
 
-        <h2 className="text-xl font-bold text-gray-900 mb-2">{product.name}</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">{product.name}</h2>
 
-        <div className="flex items-center gap-2 mb-2">
+        <div className="flex items-center gap-3 mb-2 justify-center">
           {hasDiscount && (
             <span className="text-gray-400 text-lg line-through">
-              {product.price?.toLocaleString()} د.ع
+              {product.price?.toLocaleString()} ج.م
             </span>
           )}
           <span className={`font-black ${hasDiscount ? "text-red-600 text-2xl" : "text-gray-900 text-2xl"}`}>
-            {hasDiscount ? product.discountPrice?.toLocaleString() : product.price?.toLocaleString()} د.ع
+            {hasDiscount ? product.discountPrice?.toLocaleString() : product.price?.toLocaleString()} ج.م
           </span>
         </div>
 
-        {product.weight && (
-          <div className="text-gray-500 mb-4">الوزن: {product.weight}</div>
-        )}
+        {product.weight && <div className="text-gray-500 mb-4">الوزن: {product.weight}</div>}
 
         <div className="border-t border-gray-100 pt-4 w-full text-right">
           <h3 className="font-bold text-gray-800 mb-2">الوصف</h3>
-          <p className="text-gray-600 leading-relaxed text-sm">
-            {product.description || "وصف المنتج غير متوفر حالياً."}
-          </p>
+          <p className="text-gray-600 leading-relaxed text-sm">{product.description || "وصف المنتج غير متوفر حالياً."}</p>
         </div>
       </div>
 
-      {/* --- إضافة قسم المراجعات هنا --- */}
+      {/* مراجعات العملاء */}
       <div className="max-w-2xl mx-auto px-6 mt-12 border-t border-gray-100 pt-8">
         <h3 className="font-bold text-gray-900 text-xl mb-6 text-right">مراجعات العملاء</h3>
 
-        {/* 1. ملخص التقييمات (Stars Summary) */}
         <div className="flex items-center gap-6 mb-8 bg-gray-50 p-4 rounded-2xl justify-between flex-row-reverse">
           <div className="text-center">
             <div className="text-4xl font-black text-yellow-500">{average.average?.toFixed(1) || 0}</div>
             <div className="text-sm text-gray-400">من 5</div>
           </div>
-
           <div className="flex-1 space-y-2">
             {[5, 4, 3, 2, 1].map((star) => {
               const starStat = stats.find((s) => s._id === star);
@@ -177,7 +177,7 @@ console.log("SHOP REVIEWS RESPONSE:", revRes.data);
           </div>
         </div>
 
-        {/* 2. نموذج إضافة مراجعة */}
+        {/* نموذج إضافة مراجعة */}
         <div className="mb-10 bg-white border border-gray-200 p-4 rounded-2xl shadow-sm">
           <h4 className="font-bold text-gray-800 mb-4 text-right">أضف رأيك</h4>
           <form onSubmit={handleSubmitReview} className="space-y-4">
@@ -217,7 +217,7 @@ console.log("SHOP REVIEWS RESPONSE:", revRes.data);
           </form>
         </div>
 
-        {/* 3. قائمة التعليقات */}
+        {/* قائمة المراجعات */}
         <div className="space-y-6 text-right">
           {reviewsLoading ? (
             <p className="text-center text-gray-400 animate-pulse">جاري تحميل المراجعات...</p>
@@ -234,8 +234,6 @@ console.log("SHOP REVIEWS RESPONSE:", revRes.data);
                 </div>
                 <div className="font-bold text-gray-800 text-sm mb-1">{rev.userId?.name || "عميل موثق"}</div>
                 <p className="text-gray-600 text-sm leading-relaxed mb-3">{rev.comment}</p>
-
-                {/* --- إضافة عرض الرد هنا --- */}
                 {rev.adminReply && (
                   <div className="mr-4 p-3 bg-blue-50 rounded-xl border-r-4 border-blue-500 flex gap-2 items-start">
                     <CornerDownLeft size={16} className="text-blue-500 mt-1 shrink-0" />
