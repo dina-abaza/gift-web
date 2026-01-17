@@ -7,6 +7,7 @@ import { useCartStore } from "@/app/(shop)/store/useCartStore";
 import { useAuthStore } from "@/app/(shop)/store/useAuthStore";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import Image from "next/image";
 const OffersPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -73,9 +74,19 @@ const OffersPage = () => {
               </div>
             )}
 
-          <Link href={`/product/${product._id}`} className="flex flex-col items-center w-full">
-  <div className="h-32 flex items-center justify-center mb-2">
-    <img src={product.image} className="max-h-full object-contain" alt={product.name} />
+           <Link href={`/product/${product._id}`} className="flex flex-col items-center w-full">
+  <div className="h-32 w-full flex items-center justify-center mb-2">
+    <div className="relative w-full h-full">
+      <Image
+        src={product.image}
+        alt={product.name}
+        fill
+        loading="lazy"
+        quality={80}
+        sizes="(max-width: 768px) 50vw, 25vw"
+        className="object-contain"
+      />
+    </div>
   </div>
   <h3 className="font-bold text-xs h-8 line-clamp-2 text-gray-800 text-center">{product.name}</h3>
 </Link>

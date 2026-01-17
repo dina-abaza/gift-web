@@ -5,7 +5,9 @@ import api from "@/app/api";
 import { toast } from "react-toastify";
 import Activity from "@/app/loading";
 import { reviewService } from "@/app/services/reviewservice";
-import { CornerDownLeft } from "lucide-react"; // أضفت أيقونة بسيطة للرد
+import { CornerDownLeft } from "lucide-react";
+import Script from "next/script";
+import Image from "next/image";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -88,13 +90,40 @@ console.log("SHOP REVIEWS RESPONSE:", revRes.data);
 
   return (
     <div className="bg-white min-h-screen pb-24" dir="rtl">
-      {/* قسم تفاصيل المنتج (كودك الأصلي) */}
+      {product && (
+        <Script
+          id="jsonld-product"
+          type="application/ld+json"
+          strategy="afterInteractive"
+        >
+          {JSON.stringify({
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            name: product.name,
+            image: [product.image],
+            description: product.description || "",
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "IQD",
+              price: (product.discountActive ? product.discountPrice : product.price) || 0,
+              availability: "https://schema.org/InStock",
+            },
+          })}
+        </Script>
+      )}
       <div className="max-w-2xl mx-auto px-6 mt-6 flex flex-col items-center text-center">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="max-h-64 object-contain mb-4"
-        />
+        <div className="relative w-full max-w-sm h-64 mb-4">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            priority
+            fetchPriority="high"
+            quality={80}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-contain"
+          />
+        </div>
 
         <h2 className="text-xl font-bold text-gray-900 mb-2">{product.name}</h2>
 
