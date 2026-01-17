@@ -6,6 +6,7 @@ import { ShoppingCart, Percent, Search, Package } from "lucide-react";
 import { useAuthStore } from "@/app/(shop)/store/useAuthStore";
 import { useCartStore } from "@/app/(shop)/store/useCartStore";
 import api from "@/app/api";
+import Image from "next/image";
 const Navbar = () => {
   const router = useRouter();
   const { user, isAuthenticated, logout } = useAuthStore();
@@ -149,9 +150,12 @@ const Navbar = () => {
             href="/"
             className="flex-shrink-0 w-20 h-20 md:w-20 md:h-20 overflow-hidden flex items-center justify-center"
           >
-            <img
+            <Image
               src="/logo2.png"
               alt="Logo"
+              width={80}
+              height={80}
+              priority
               className="w-full h-full object-contain scale-[2.2] mix-blend-multiply"
             />
           </Link>

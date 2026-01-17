@@ -1,12 +1,14 @@
 
 import CategoryGrid from "./components/categoriesgrid";
+import BannerCarousel from "./components/BannerCarousel";
 
 
-// 2. يجب أن يكون هناك export default للدالة الأساسية
 export default function Home() {
   return (
     <main className="min-h-screen bg-gray-50">
-      {/* محتوى الصفحة (الجريد) */}
+      <div className="max-w-7xl mx-auto px-4">
+        <BannerCarousel />
+      </div>
       <div>
         <CategoryGrid />
       </div>

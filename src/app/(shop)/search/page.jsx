@@ -8,6 +8,7 @@ import { useCartStore } from "@/app/(shop)/store/useCartStore";
 import { useAuthStore } from "@/app/(shop)/store/useAuthStore";
 import { toast } from "react-toastify";
 import Activity from "@/app/loading";
+import Image from "next/image";
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -82,11 +83,17 @@ export default function SearchPage() {
             <div key={product._id} className="border rounded-2xl p-4 hover:shadow-lg transition-shadow bg-white flex flex-col">
               {/* رابط للصورة والاسم */}
               <Link href={`/product/${product._id}`} className="flex-grow">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-40 object-contain mb-4"
-                />
+                <div className="relative w-full h-40 mb-4">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    loading="lazy"
+                    quality={80}
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-contain"
+                  />
+                </div>
                 <p className="text-red-600 font-black text-lg mb-1">
                   {product.price?.toLocaleString()} <span className="text-xs">د.ع</span>
                 </p>
