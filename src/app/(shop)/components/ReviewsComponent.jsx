@@ -105,7 +105,7 @@ const ReviewsComponent = () => {
 
                   <div className="flex-grow">
                     <p className="text-gray-600 text-sm mb-4 leading-relaxed italic">
-                      "{review.comment}"
+                      {`"${review.comment}"`}
                     </p>
                   </div>
 

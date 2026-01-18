@@ -18,9 +18,9 @@ const OffersPage = () => {
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const response = await api.get("/products/offers");
-        console.log("🟢 بيانات العروض:", response.data);
-        setProducts(response.data.products);
+        const response = await fetch("/api/products/offers", { cache: "force-cache" });
+        const data = await response.json();
+        setProducts(data.products || []);
       } catch (error) {
         console.error("خطأ في جلب العروض:", error);
       } finally {
@@ -32,10 +32,12 @@ const OffersPage = () => {
 
   const handleAdd = async (product) => {
     if (!isAuthenticated) {
+      const { toast } = await import("react-toastify");
       toast.info("سجّل الدخول أولاً");
       return router.push("/login");
     }
     await addToCart(user.id || user._id, product._id, 1);
+    const { toast } = await import("react-toastify");
     toast.success("تمت الإضافة للسلة");
   };
 
