@@ -95,11 +95,11 @@ const OffersPage = () => {
             <div className="flex flex-col items-center my-2">
               {product.discountPrice && product.discountPrice < product.price && (
                 <span className="text-gray-400 line-through text-[10px]">
-                  {product.price?.toLocaleString()} د.ع
+                  {product.price?.toLocaleString()} ج.م
                 </span>
               )}
               <span className="text-red-600 font-black text-sm">
-                {product.discountPrice?.toLocaleString() || product.price?.toLocaleString()} د.ع
+                {product.discountPrice?.toLocaleString() || product.price?.toLocaleString()} ج.م
               </span>
             </div>
 

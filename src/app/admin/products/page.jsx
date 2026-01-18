@@ -170,7 +170,7 @@ export default function AdminProductsPage() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-sm font-bold text-gray-700 dark:text-gray-300">سعر الخصم</label>
+            <label className="text-sm font-bold text-gray-700 dark:text-gray-300">السعر بعد الخصم</label>
             <input className="w-full p-3 md:p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl font-bold" type="number" value={form.discountPrice} onChange={(e) => setForm({ ...form, discountPrice: e.target.value })} placeholder="اختياري..." />
           </div>
 
@@ -250,12 +250,12 @@ export default function AdminProductsPage() {
                     </span>
                   </td>
                   <td className="p-5 font-black text-blue-600 whitespace-nowrap text-sm">
-                    {p.price?.toLocaleString()} <span className="text-[10px]">د.ع</span>
+                    {p.price?.toLocaleString()} <span className="text-[10px]">ج.م</span>
                   </td>
                   <td className="p-5">
                     {p.discountActive ? (
                       <span className="text-green-600 font-bold bg-green-50 dark:bg-green-900/20 px-3 py-1.5 rounded-xl text-xs border border-green-100 dark:border-green-900/30">
-                        {p.discountPrice?.toLocaleString()} د.ع
+                        {p.discountPrice?.toLocaleString()} ج.م
                       </span>
                     ) : <span className="text-gray-300 text-xs">—</span>}
                   </td>
@@ -301,10 +301,10 @@ export default function AdminProductsPage() {
                          {p.discountActive ? (
                             <>
                                 <span className="text-xs text-gray-400 line-through font-bold">{p.price?.toLocaleString()}</span>
-                                <span className="text-blue-600 font-black text-lg">{p.discountPrice?.toLocaleString()} <span className="text-xs">د.ع</span></span>
+                                <span className="text-blue-600 font-black text-lg">{p.discountPrice?.toLocaleString()} <span className="text-xs">ج.م</span></span>
                             </>
                          ) : (
-                            <span className="text-blue-600 font-black text-lg">{p.price?.toLocaleString()} <span className="text-xs">د.ع</span></span>
+                            <span className="text-blue-600 font-black text-lg">{p.price?.toLocaleString()} <span className="text-xs">ج.م</span></span>
                          )}
                     </div>
                     
