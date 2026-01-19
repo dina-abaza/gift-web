@@ -68,9 +68,15 @@ export default function BannerCarousel() {
 
 
       {/* Dots */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-3" suppressHydrationWarning>
         {slides.map((_, i) => (
-          <button key={i} onClick={() => goTo(i)} className={`transition-all duration-500 ease-out h-3 rounded-full ${i===index ? 'w-12 bg-white':'w-3 bg-white/50 hover:bg-white/80'}`} aria-label={`اذهب إلى الشريحة ${i+1}`}/>
+          <button
+            key={i}
+            onClick={() => goTo(i)}
+            className={`transition-all duration-500 ease-out h-3 rounded-full ${i===index ? 'w-12 bg-white':'w-3 bg-white/50 hover:bg-white/80'}`}
+            aria-label={`اذهب إلى الشريحة ${i+1}`}
+            suppressHydrationWarning
+          />
         ))}
       </div>
     </section>
