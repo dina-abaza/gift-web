@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import api from "@/app/api";
 import { ShoppingCart, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/app/(shop)/store/useCartStore";
@@ -28,8 +27,9 @@ const OffersCarousel = () => {
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const response = await api.get("/products/offers");
-        setProducts(response.data.products?.slice(0, 8) || []);
+        const response = await fetch("/api/products/offers", { cache: "force-cache" });
+        const data = await response.json();
+        setProducts(data.products?.slice(0, 8) || []);
       } catch (err) {
         console.error("خطأ في جلب العروض:", err);
       } finally {
@@ -149,4 +149,4 @@ const OffersCarousel = () => {
   );
 };
 
-export default OffersCarousel;
+export default React.memo(OffersCarousel);
