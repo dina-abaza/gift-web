@@ -64,7 +64,7 @@ const OffersCarousel = () => {
             grabCursor={true}
             centeredSlides={true}
             slidesPerView={"auto"}
-            loop={true}
+           loop={products.length > 1}
             coverflowEffect={{
               rotate: 30,    // درجة الدوران (مثل الكرة الأرضية)
               stretch: 0,    // تمدد العناصر
@@ -98,10 +98,10 @@ const OffersCarousel = () => {
                           src={product.image}
                           alt={product.name}
                           fill
-                          className="object-contain p-4"
-                          sizes="280px"
-                          priority={isActive}
-                          quality={80}
+                          className="object-cover"
+                          sizes="240px"
+                           loading={isActive ? "eager" : "lazy"}
+                          quality={70}
                         />
                       </div>
                       <h3 className="font-bold text-center text-gray-800 line-clamp-1">{product.name}</h3>

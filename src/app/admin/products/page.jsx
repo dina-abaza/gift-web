@@ -14,7 +14,7 @@ export default function AdminProductsPage() {
   const [editProductId, setEditProductId] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [page, setPage] = useState(1);
-
+const [totalPages, setTotalPages] = useState(1);
   const [form, setForm] = useState({
     name: "",
     price: "",
@@ -36,18 +36,24 @@ export default function AdminProductsPage() {
     }
   };
 
-  const fetchProducts = async (pageNumber = 1) => {
-    setLoading(true);
-    try {
-      const res = await axios.get(`${BASE_URL}/api/products?page=${pageNumber}&limit=10`);
-      setProducts(res.data.products || []);
-      setPage(pageNumber);
-    } catch (err) {
-      toast.error("فشل جلب المنتجات");
-    } finally {
-      setLoading(false);
-    }
-  };
+const fetchProducts = async (pageNumber = 1) => {
+  setLoading(true);
+  try {
+    const res = await axios.get(`${BASE_URL}/api/products?page=${pageNumber}&limit=10`);
+    setProducts(res.data.products || []);
+    
+    // تأكدي من السيرفر، غالباً يرسل totalPages أو حسابها يدوياً:
+    // إذا كان يرسل إجمالي المنتجات 127، نقسمها على 10
+    const total = res.data.totalPages || Math.ceil(127 / 10); 
+    setTotalPages(total);
+    
+    setPage(pageNumber);
+  } catch (err) {
+    toast.error("فشل جلب المنتجات");
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     fetchCategories();
@@ -326,7 +332,7 @@ export default function AdminProductsPage() {
         <div className="p-6 bg-gray-50/50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row-reverse justify-center items-center gap-4 sm:gap-8">
           <button 
             onClick={() => fetchProducts(page + 1)}
-            disabled={products.length < 10 || loading}
+           disabled={page >= totalPages || loading}
             className="flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-2xl font-bold shadow-sm hover:shadow-md disabled:opacity-30 disabled:hover:translate-y-0 transition-all text-sm group"
           >
             التالي

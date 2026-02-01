@@ -125,7 +125,7 @@ const ProductDetails = () => {
             fill
             priority
             fetchPriority="high"
-            quality={80}
+            quality={70}
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"
           />

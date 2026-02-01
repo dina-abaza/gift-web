@@ -82,11 +82,12 @@ const ReviewsComponent = () => {
                           src={product.image}
                           alt={product.name || "Product"}
                           fill
+                        sizes="48px"
                           className="object-cover"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-[10px] text-gray-400 text-center p-1">
-                          {product ? product.image : "جاري التحميل..."}
+                          {product ? "بلا صورة" : "جاري التحميل..."}
                         </div>
                       )}
                     </div>
@@ -105,7 +106,7 @@ const ReviewsComponent = () => {
 
                   <div className="flex-grow">
                     <p className="text-gray-600 text-sm mb-4 leading-relaxed italic">
-                      {`"${review.comment}"`}
+                      "{review.comment}"
                     </p>
                   </div>
 

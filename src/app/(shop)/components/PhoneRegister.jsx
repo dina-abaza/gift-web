@@ -49,7 +49,7 @@ export default function PhoneRegister() {
           <input
             type="tel"
             placeholder="رقم الهاتف + الدولة"
-            className="w-full rounded-2xl px-5 py-4 text-gray-700 bg-gray-100 placeholder-gray-400 shadow-inner outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full rounded-2xl px-5 py-4 text-gray-700 bg-gray-100 placeholder-gray-400 shadow-inner outline-none focus:ring-2 focus:ring-red-500 text-right"
             onChange={(e) => setPhone(e.target.value)}
             required
           />
@@ -70,7 +70,7 @@ export default function PhoneRegister() {
           <input
             type="text"
             placeholder="أدخل رمز OTP"
-            className="w-full rounded-2xl px-5 py-4 text-gray-700 bg-gray-100 placeholder-gray-400 shadow-inner outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full rounded-2xl px-5 py-4 text-gray-700 bg-gray-100 placeholder-gray-400 shadow-inner outline-none focus:ring-2 focus:ring-red-500 text-right"
             onChange={(e) => setOtp(e.target.value)}
             required
           />

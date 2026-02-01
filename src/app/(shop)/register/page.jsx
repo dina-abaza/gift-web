@@ -36,28 +36,28 @@ export default function RegisterPage() {
           <input
           type="name"
             placeholder="اسم المستخدم"
-            className="w-full rounded-2xl px-5 py-4 text-gray-700 bg-gray-100 placeholder-gray-400 shadow-inner outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full rounded-2xl px-5 py-4 text-gray-700 bg-gray-100 placeholder-gray-400 shadow-inner outline-none focus:ring-2 focus:ring-red-500 text-right"
             onChange={(e) => setForm({ ...form, username: e.target.value })}
             required
           />
           <input
             type="tel"
             placeholder="رقم الهاتف"
-            className="w-full rounded-2xl px-5 py-4 text-gray-700 bg-gray-100 placeholder-gray-400 shadow-inner outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full rounded-2xl px-5 py-4 text-gray-700 bg-gray-100 placeholder-gray-400 shadow-inner outline-none focus:ring-2 focus:ring-red-500 text-right"
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
             required
           />
           <input
             type="email"
             placeholder="البريد الإلكتروني"
-            className="w-full rounded-2xl px-5 py-4 text-gray-700 bg-gray-100 placeholder-gray-400 shadow-inner outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full rounded-2xl px-5 py-4 text-gray-700 bg-gray-100 placeholder-gray-400 shadow-inner outline-none focus:ring-2 focus:ring-red-500 text-right"
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             required
           />
           <input
             type="password"
             placeholder="كلمة المرور"
-            className="w-full rounded-2xl px-5 py-4 text-gray-700 bg-gray-100 placeholder-gray-400 shadow-inner outline-none focus:ring-2 focus:ring-red-500"
+            className="w-full rounded-2xl px-5 py-4 text-gray-700 bg-gray-100 placeholder-gray-400 shadow-inner outline-none focus:ring-2 focus:ring-red-500 text-right"
             onChange={(e) => setForm({ ...form, password: e.target.value })}
             required
           />

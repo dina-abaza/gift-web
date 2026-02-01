@@ -18,7 +18,7 @@ const OffersPage = () => {
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const response = await fetch("/api/products/offers", { cache: "force-cache" });
+        const response = await fetch("/api/products/offers", { cache: "no-store" });
         const data = await response.json();
         setProducts(data.products || []);
       } catch (error) {
@@ -71,22 +71,22 @@ const OffersPage = () => {
           >
             {/* نسبة الخصم */}
             {product.discountPercent > 0 && (
-              <div className="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-2xl">
+              <div className="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-2xl z-10">
                 خصم {Math.round(product.discountPercent)}%
               </div>
             )}
 
            <Link href={`/product/${product._id}`} className="flex flex-col items-center w-full">
   <div className="h-32 w-full flex items-center justify-center mb-2">
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full aspect-square">
       <Image
         src={product.image}
         alt={product.name}
         fill
         loading="lazy"
-        quality={80}
+        quality={70}
         sizes="(max-width: 768px) 50vw, 25vw"
-        className="object-contain"
+        className="object-cover"
       />
     </div>
   </div>
