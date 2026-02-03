@@ -45,7 +45,6 @@ const OffersCarousel = () => {
       return router.push("/login");
     }
     await addToCart(user.id || user._id, product._id, 1);
-    toast.success("تمت الإضافة للسلة");
   };
 
   if (loading) return <div className="py-16 text-center animate-pulse text-red-600 font-bold">جاري تحميل العروض...</div>;

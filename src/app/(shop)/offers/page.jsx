@@ -37,8 +37,6 @@ const OffersPage = () => {
       return router.push("/login");
     }
     await addToCart(user.id || user._id, product._id, 1);
-    const { toast } = await import("react-toastify");
-    toast.success("تمت الإضافة للسلة");
   };
 
   if (loading)

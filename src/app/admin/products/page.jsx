@@ -25,6 +25,12 @@ const [totalPages, setTotalPages] = useState(1);
     description: "",
   });
 
+  // حالة للخطأ في الحقول
+  const [errors, setErrors] = useState({
+    name: "",
+    image: "",
+  });
+
   const BASE_URL = "https://iraqi-e-store-api.vercel.app";
 
   const fetchCategories = async () => {
@@ -62,8 +68,35 @@ const fetchProducts = async (pageNumber = 1) => {
 
   const submitProduct = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.price || !form.category || (!editProductId && !imageFile)) {
+    
+    // إعادة تعيين الأخطاء
+    setErrors({ name: "", image: "" });
+    
+    // التحقق من الحقول
+    let isValid = true;
+    
+    // التحقق من اسم المنتج (مطلوب فقط، بدون حدود على الطول)
+    if (!form.name.trim()) {
+      setErrors(prev => ({ ...prev, name: "اسم المنتج مطلوب" }));
+      isValid = false;
+    }
+    
+    // التحقق من الصورة (حد أقصى 5 ميجا)
+    if (!editProductId && imageFile) {
+      const maxSize = 5 * 1024 * 1024; // 5 ميجا
+      if (imageFile.size > maxSize) {
+        setErrors(prev => ({ ...prev, image: "حجم الصورة يجب أن يكون على الأكثر 5 ميجا" }));
+        isValid = false;
+      }
+    }
+    
+    // التحقق من الحقول المطلوبة الأخرى
+    if (!form.price || !form.category || (!editProductId && !imageFile)) {
       toast.warn("تأكد من إدخال جميع الحقول المطلوبة");
+      isValid = false;
+    }
+    
+    if (!isValid) {
       return;
     }
 
@@ -159,6 +192,7 @@ const fetchProducts = async (pageNumber = 1) => {
           <div className="space-y-1.5">
             <label className="text-sm font-bold text-gray-700 dark:text-gray-300">اسم المنتج</label>
             <input className="w-full p-3 md:p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 text-sm font-bold" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="أدخل اسم المنتج..." required />
+            {errors.name && <span className="text-red-500 text-xs">{errors.name}</span>}
           </div>
 
           <div className="space-y-1.5 relative">
@@ -203,6 +237,7 @@ const fetchProducts = async (pageNumber = 1) => {
                  <PlusCircle size={20} />
               </div>
             </div>
+            {errors.image && <span className="text-red-500 text-xs">{errors.image}</span>}
           </div>
 
           <button type="submit" disabled={submitting} className="col-span-full py-4.5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-blue-200 dark:shadow-none active:scale-[0.98] mt-4 flex justify-center items-center gap-2">

@@ -66,8 +66,6 @@ export default function SearchPage() {
     const userId = user?.id || user?._id;
     const qty = quantities[product._id] || 1;
     await addToCart(userId, product._id, qty);
-    const { toast } = await import("react-toastify");
-    toast.success("تمت الإضافة للسلة");
   };
 
   if (loading) return <Activity />;
