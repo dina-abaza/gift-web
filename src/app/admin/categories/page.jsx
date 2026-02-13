@@ -34,7 +34,7 @@ export default function CategoriesPage() {
 
   // Add category
   const handleAdd = async () => {
-    if (!newName.trim()) return toast.warn("أدخل اسم القسم أولاً");
+if (!newName.trim() || newName.length > 50) return toast.warn("الاسم مطلوب يجب ألا يتجاوز 50 حرفا");
 
     try {
       const formData = new FormData();
@@ -85,7 +85,7 @@ export default function CategoriesPage() {
 
   // Update category
   const handleUpdate = async (id) => {
-    if (!editName.trim()) return toast.warn("أدخل الاسم الجديد");
+ if (!editName.trim() || editName.length > 50) return toast.warn("الاسم لا يمكن أن يكون فارغاً أو أطول من 50 حرف");
     try {
       const formData = new FormData();
       formData.append("name", editName);
@@ -134,6 +134,7 @@ export default function CategoriesPage() {
         <input
           type="text"
           value={newName}
+          maxLength={30}
           onChange={e => setNewName(e.target.value)}
           placeholder="اسم القسم الجديد..."
           className="w-full flex-1 p-4 bg-gray-50 dark:bg-gray-900 border-none rounded-2xl focus:ring-2 focus:ring-green-500 dark:text-white outline-none shadow-sm hover:shadow-md transition-all"
@@ -177,6 +178,7 @@ export default function CategoriesPage() {
                 <input
                   type="text"
                   value={editName}
+                  maxLength={30}
                   onChange={e => setEditName(e.target.value)}
                   className="flex-1 p-2 bg-gray-100 dark:bg-gray-900 rounded-xl outline-none border border-green-300 dark:border-green-600"
                 />

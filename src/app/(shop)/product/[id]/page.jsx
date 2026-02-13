@@ -64,6 +64,9 @@ const ProductDetails = () => {
 
   const handleSubmitReview = async (e) => {
     e.preventDefault();
+    if (newReview.comment.length > 200) {
+    return toast.warn("التعليق طويل جداً، الحد الأقصى 200 حرف");
+  }
     setSubmitting(true);
     try {
       await reviewService.add({ productId: id, ...newReview });
@@ -201,6 +204,7 @@ const ProductDetails = () => {
                 className="w-full p-3 bg-gray-50 border-none rounded-lg text-sm outline-none h-24"
                 placeholder="تكلم عن تجربتك مع المنتج..."
                 value={newReview.comment}
+                maxLength={200}
                 onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
                 required
               />

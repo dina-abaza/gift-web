@@ -76,10 +76,19 @@ const fetchProducts = async (pageNumber = 1) => {
     let isValid = true;
     
     // التحقق من اسم المنتج (مطلوب فقط، بدون حدود على الطول)
-    if (!form.name.trim()) {
-      setErrors(prev => ({ ...prev, name: "اسم المنتج مطلوب" }));
-      isValid = false;
-    }
+  // التحقق من اسم المنتج
+if (!form.name.trim()) {
+  setErrors(prev => ({ ...prev, name: "اسم المنتج مطلوب" }));
+  isValid = false;
+} else if (form.name.length > 20) { 
+  setErrors(prev => ({ ...prev, name: "الاسم لا يجب أن يتجاوز 20 حرفاً" }));
+  isValid = false;
+}
+
+if (form.description.length > 200) { 
+  toast.warn("الوصف طويل جداً، الحد الأقصى 200 حرف");
+  isValid = false;
+}
     
     // التحقق من الصورة (حد أقصى 5 ميجا)
     if (!editProductId && imageFile) {
@@ -191,7 +200,7 @@ const fetchProducts = async (pageNumber = 1) => {
         <form onSubmit={submitProduct} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <div className="space-y-1.5">
             <label className="text-sm font-bold text-gray-700 dark:text-gray-300">اسم المنتج</label>
-            <input className="w-full p-3 md:p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 text-sm font-bold" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="أدخل اسم المنتج..." required />
+            <input className="w-full p-3 md:p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 text-sm font-bold" value={form.name} maxLength={20} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="أدخل اسم المنتج..." required />
             {errors.name && <span className="text-red-500 text-xs">{errors.name}</span>}
           </div>
 
@@ -226,7 +235,7 @@ const fetchProducts = async (pageNumber = 1) => {
 
           <div className="col-span-full space-y-1.5">
             <label className="text-sm font-bold text-gray-700 dark:text-gray-300 flex items-center gap-2"><AlignRight size={16}/> وصف المنتج</label>
-            <textarea className="w-full p-3 md:p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl font-medium text-sm outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="اكتب تفاصيل المنتج هنا..." />
+            <textarea className="w-full p-3 md:p-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl font-medium text-sm outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]" value={form.description} maxLength={200} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="اكتب تفاصيل المنتج هنا..." />
           </div>
 
           <div className="col-span-full space-y-1.5">
