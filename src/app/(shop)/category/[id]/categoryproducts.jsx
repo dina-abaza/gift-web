@@ -131,6 +131,7 @@ const CategoryProducts = () => {
                   src={product.image || "/placeholder.jpg"}
                   alt={product.name}
                   fill
+                  unoptimized
                   sizes="(max-width: 768px) 50vw, 220px"
                   loading="lazy"
                   className="object-cover w-full h-full"

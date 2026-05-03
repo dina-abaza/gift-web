@@ -82,6 +82,7 @@ const ReviewsComponent = () => {
                           src={product.image}
                           alt={product.name || "Product"}
                           fill
+                          unoptimized
                         sizes="48px"
                           className="object-cover"
                         />

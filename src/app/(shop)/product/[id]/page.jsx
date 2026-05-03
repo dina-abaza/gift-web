@@ -126,6 +126,7 @@ const ProductDetails = () => {
             src={product.image}
             alt={product.name}
             fill
+            unoptimized
             priority
             fetchPriority="high"
             quality={70}

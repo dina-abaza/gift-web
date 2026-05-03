@@ -291,6 +291,7 @@ if (form.description.length > 200) {
                         src={p.image || "/placeholder.jpg"}
                         alt={p.name || "صورة المنتج"}
                         fill
+                        unoptimized
                         sizes="56px"
                         loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
@@ -344,6 +345,7 @@ if (form.description.length > 200) {
                   alt={p.name}
                   width={96}
                   height={96}
+                  unoptimized
                   loading="lazy"
                   className="w-full h-full object-cover"
                 />

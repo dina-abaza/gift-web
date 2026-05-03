@@ -89,6 +89,7 @@ export default function SearchPage() {
                     src={product.image}
                     alt={product.name}
                     fill
+                    unoptimized
                     loading="lazy"
                     quality={80}
                     sizes="(max-width: 768px) 50vw, 25vw"

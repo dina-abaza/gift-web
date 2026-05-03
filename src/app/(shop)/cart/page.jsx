@@ -101,6 +101,7 @@ const handleConfirmOrder = async (e) => {
                     src={item.productId?.image || "/placeholder.png"}
                     alt={item.productId?.name || "صورة المنتج"}
                     fill
+                    unoptimized
                     sizes="80px"
                     loading="lazy"
                     className="max-h-full object-contain"

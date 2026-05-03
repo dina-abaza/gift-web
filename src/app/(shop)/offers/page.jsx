@@ -81,6 +81,7 @@ const OffersPage = () => {
         src={product.image}
         alt={product.name}
         fill
+        unoptimized
         loading="lazy"
         quality={70}
         sizes="(max-width: 768px) 50vw, 25vw"

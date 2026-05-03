@@ -228,6 +228,7 @@ if (!newName.trim() || newName.length > 50) return toast.warn("الاسم مطل
                   alt={cat.name}
                   width={48}
                   height={48}
+                  unoptimized
                   loading="lazy"
                   className="w-12 h-12 rounded-xl object-cover border"
                 />
