@@ -151,7 +151,7 @@ const Navbar = () => {
             className="flex-shrink-0 w-20 h-20 md:w-20 md:h-20 overflow-hidden flex items-center justify-center"
           >
             <Image
-              src="/logoGift.png"
+              src="/logoGift.webp"
               alt="Logo"
               width={80}
               height={80}

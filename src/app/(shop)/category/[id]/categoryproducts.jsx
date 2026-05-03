@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import api from "@/app/api"; 
+import Image from "next/image";
 import { ShoppingCart, Plus, Minus, ArrowRight } from "lucide-react";
 import { toast } from "react-toastify";
 import Activity from "@/app/loading";
@@ -123,13 +124,16 @@ const CategoryProducts = () => {
 
               {/* الصورة */}
               <div 
-                className="w-full h-44 flex items-center justify-center mb-3 cursor-pointer overflow-hidden rounded-2xl"
+                className="relative w-full h-44 flex items-center justify-center mb-3 cursor-pointer overflow-hidden rounded-2xl"
                 onClick={() => router.push(`/product/${product._id}`)}
               > 
-                <img 
-                  src={product.image || "/placeholder.jpg"} 
-                  alt={product.name} 
-                  className="object-cover w-full h-full" 
+                <Image
+                  src={product.image || "/placeholder.jpg"}
+                  alt={product.name}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 220px"
+                  loading="lazy"
+                  className="object-cover w-full h-full"
                 />
               </div>
 

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Image from "next/image";
 import { Plus, Trash2, Edit2, FolderOpen, Check, X } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -152,7 +153,14 @@ if (!newName.trim() || newName.length > 50) return toast.warn("الاسم مطل
             className="block w-full md:w-48 text-sm text-gray-600 file:mr-2 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
           />
           {previewUrl && (
-            <img src={previewUrl} alt="معاينة" className="w-12 h-12 rounded-xl object-cover border" />
+            <Image
+              src={previewUrl}
+              alt="معاينة"
+              width={48}
+              height={48}
+              unoptimized
+              className="w-12 h-12 rounded-xl object-cover border"
+            />
           )}
         </div>
         <button
@@ -204,11 +212,25 @@ if (!newName.trim() || newName.length > 50) return toast.warn("الاسم مطل
                     className="block w-40 text-sm text-gray-600 file:mr-2 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                   />
                   {editPreviewUrl && (
-                    <img src={editPreviewUrl} alt="معاينة" className="w-12 h-12 rounded-xl object-cover border" />
+                    <Image
+                      src={editPreviewUrl}
+                      alt="معاينة"
+                      width={48}
+                      height={48}
+                      unoptimized
+                      className="w-12 h-12 rounded-xl object-cover border"
+                    />
                   )}
                 </div>
               ) : (
-                <img src={cat.image || "/placeholder.jpg"} alt={cat.name} className="w-12 h-12 rounded-xl object-cover border" />
+                <Image
+                  src={cat.image || "/placeholder.jpg"}
+                  alt={cat.name}
+                  width={48}
+                  height={48}
+                  loading="lazy"
+                  className="w-12 h-12 rounded-xl object-cover border"
+                />
               )}
             </div>
 

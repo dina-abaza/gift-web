@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PackageSearch, Edit, Trash2, PlusCircle, ImageIcon, Weight, ChevronRight, ChevronLeft, Layers, AlignRight } from "lucide-react";
@@ -286,7 +287,14 @@ if (form.description.length > 200) {
                 <tr key={p._id} className="hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-colors group">
                   <td className="p-5">
                     <div className="relative w-14 h-14 overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-600 shadow-sm">
-                        <img src={p.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="" />
+                      <Image
+                        src={p.image || "/placeholder.jpg"}
+                        alt={p.name || "صورة المنتج"}
+                        fill
+                        sizes="56px"
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
                     </div>
                   </td>
                   <td className="p-5">
@@ -331,7 +339,14 @@ if (form.description.length > 200) {
           ) : products.map((p) => (
             <div key={p._id} className="bg-white dark:bg-gray-700/30 p-4 rounded-3xl border border-gray-100 dark:border-gray-600 shadow-sm flex gap-4 items-start relative overflow-hidden">
               <div className="w-24 h-24 flex-shrink-0 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-600">
-                <img src={p.image} className="w-full h-full object-cover" alt={p.name} />
+                <Image
+                  src={p.image || "/placeholder.jpg"}
+                  alt={p.name}
+                  width={96}
+                  height={96}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="flex-1 space-y-2 min-w-0">
                 <div className="flex justify-between items-start">

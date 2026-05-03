@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link'; 
+import Image from "next/image";
 import Activity from '@/app/loading';
 import { Box } from "lucide-react"; // أيقونة Lucide
 
@@ -50,9 +51,12 @@ const CategoryGrid = () => {
             </div>
 
             {/* الصورة */}
-            <img 
-              src={category.image || "/placeholder.jpg"} 
+            <Image
+              src={category.image || "/placeholder.jpg"}
               alt={category.name || "تصنيف"}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              loading="lazy"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
 

@@ -2,7 +2,13 @@
 const nextConfig = {
   reactCompiler: true,
   images: {
-    domains: ['i.ibb.co'], // أضيفي أي دومينات خارجية تستخدمينها للصور
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      { protocol: "https", hostname: "iraqi-e-store-api.vercel.app" },
+      { protocol: "https", hostname: "i.ibb.co" },
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "http", hostname: "localhost" },
+    ],
   },
 };
 

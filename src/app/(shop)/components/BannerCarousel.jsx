@@ -6,9 +6,9 @@ import { motion } from "framer-motion";
 export default function BannerCarousel() {
   const slides = useMemo(
     () => [
-      { src: "/banner1.jpg", brand: "هدايا راقية", title: "قصّة تُهدى", subtitle: "اختيارات فاخرة تليق بالمناسبات الخاصة وتعكس ذوقكم الرفيع" },
-      { src: "/banner2.jpg", brand: "إكسسوارات الهدايا", title: "لحظات لا تُنسى", subtitle: "صُنعت بعناية لتصبح تذكارًا مميزًا لكل من تحب" },
-      { src: "/banner3.jpg", brand: "عروض đặc biệt", title: "سعر مناسب", subtitle: "احصل على أفضل العروض وخصومات على هداياك المفضلة" },
+      { src: "/banner1.webp", brand: "هدايا راقية", title: "قصّة تُهدى", subtitle: "اختيارات فاخرة تليق بالمناسبات الخاصة وتعكس ذوقكم الرفيع" },
+      { src: "/banner2.webp", brand: "إكسسوارات الهدايا", title: "لحظات لا تُنسى", subtitle: "صُنعت بعناية لتصبح تذكارًا مميزًا لكل من تحب" },
+      { src: "/banner3.webp", brand: "عروض đặc biệt", title: "سعر مناسب", subtitle: "احصل على أفضل العروض وخصومات على هداياك المفضلة" },
     ],
     []
   );

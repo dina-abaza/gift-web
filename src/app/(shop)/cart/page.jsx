@@ -5,6 +5,7 @@ import { useCartStore } from "@/app/(shop)/store/useCartStore";
 import { Trash2, Plus, Minus, ShoppingBasket, ArrowRight, Truck, X, MapPin, Phone, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { toast } from "react-toastify";
 import api from "@/app/api";
 
@@ -95,8 +96,15 @@ const handleConfirmOrder = async (e) => {
           <div className="flex flex-col gap-4">
             {cart.items.map((item, idx) => (
               <div key={item._id || idx} className="bg-white rounded-3xl p-4 shadow-sm border border-gray-100 flex items-center gap-4">
-                <div className="w-20 h-20 bg-gray-50 rounded-2xl p-2 flex items-center justify-center">
-                  <img src={item.productId?.image || "/placeholder.png"} className="max-h-full object-contain" />
+                <div className="relative w-20 h-20 bg-gray-50 rounded-2xl p-2 flex items-center justify-center">
+                  <Image
+                    src={item.productId?.image || "/placeholder.png"}
+                    alt={item.productId?.name || "صورة المنتج"}
+                    fill
+                    sizes="80px"
+                    loading="lazy"
+                    className="max-h-full object-contain"
+                  />
                 </div>
                 <div className="flex-1">
                   <h3 className="font-bold text-gray-800 text-sm">{item.productId?.name || "اسم غير متوفر"}</h3>
