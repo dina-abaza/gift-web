@@ -42,7 +42,18 @@ export default function GoogleSignInButton() {
         <span>أو</span>
         <span className="h-px flex-1 bg-gray-200"></span>
       </div>
-      <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
+      <GoogleLogin
+        onSuccess={handleSuccess}
+        onError={handleError}
+        use_fedcm_for_prompt={false}
+        use_fedcm_for_button={false}
+        ux_mode="popup"
+        promptMomentNotification={(notification) => {
+          if (notification.isNotDisplayed?.()) {
+            console.warn("Google prompt not displayed:", notification.getNotDisplayedReason?.());
+          }
+        }}
+      />
     </div>
   );
 }

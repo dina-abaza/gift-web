@@ -3,11 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [70, 75],
     remotePatterns: [
-      { protocol: "https", hostname: "iraqi-e-store-api.vercel.app" },
-      { protocol: "https", hostname: "i.ibb.co" },
-      { protocol: "https", hostname: "images.unsplash.com" },
-      { protocol: "http", hostname: "localhost" },
+      { protocol: "https", hostname: "**" },
+      { protocol: "http", hostname: "**" },
     ],
   },
   experimental: {
