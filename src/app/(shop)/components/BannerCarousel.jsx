@@ -41,15 +41,27 @@ export default function BannerCarousel() {
   return (
     <section className="relative mx-auto mt-4 md:mt-6 overflow-hidden rounded-2xl" style={{ height: "min(70vh, 620px)" }}>
       {/* Stack all slides */}
-      {slides.map((slide, i) => (
+      {slides.map((slide, i) => {
+        const isActive = i === index;
+        const isNext  = i === (index + 1) % slides.length;
+        return (
         <motion.div
           key={slide.src}
           initial={{ opacity: 0 }}
-          animate={{ opacity: i === index ? 1 : 0 }}
+          animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 1.2, ease: "easeInOut" }}
           className="absolute inset-0"
         >
-          <Image src={slide.src} alt={slide.title} fill className="object-cover" priority={i===0} />
+          {(isActive || isNext || i === 0) && (
+            <Image
+              src={slide.src}
+              alt={slide.title}
+              fill
+              className="object-cover"
+              priority={i === 0}
+              loading={i === 0 ? undefined : "lazy"}
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent flex items-center">
             <div className="container mx-auto px-6 md:px-12 max-w-7xl">
               <motion.div
@@ -64,7 +76,8 @@ export default function BannerCarousel() {
             </div>
           </div>
         </motion.div>
-      ))}
+        );
+      })}
 
 
       {/* Dots */}

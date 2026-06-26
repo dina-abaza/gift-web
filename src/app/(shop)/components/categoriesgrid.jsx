@@ -55,7 +55,6 @@ const CategoryGrid = () => {
               src={category.image || "/placeholder.jpg"}
               alt={category.name || "تصنيف"}
               fill
-              unoptimized
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               loading="lazy"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"

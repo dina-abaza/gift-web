@@ -27,21 +27,19 @@ const ReviewsComponent = () => {
           return id;
         }))].filter(Boolean); // حذف أي قيم فارغة
 
-        const productsMap = {};
+        const results = await Promise.all(
+          productIds.map((id) =>
+            api.get(`/products/${id}`)
+              .then((r) => ({ id, data: r.data }))
+              .catch(() => ({ id, data: null }))
+          )
+        );
 
-        for (const id of productIds) {
-          try {
-            const response = await api.get(`/products/${id}`);
-            if (response.data) {
-              // تخزين المنتج باستخدام الـ _id الراجع من السيرفر لضمان التطابق
-              productsMap[response.data._id] = response.data;
-            }
-          } catch (err) {
-            console.warn(`المنتج ${id} غير موجود 404`);
-            productsMap[id] = null;
-          }
-        }
-        
+        const productsMap = {};
+        results.forEach(({ id, data }) => {
+          productsMap[data?._id || id] = data;
+        });
+
         setProducts(productsMap);
       } catch (error) {
         console.error("خطأ في جلب التقييمات:", error);
@@ -82,8 +80,7 @@ const ReviewsComponent = () => {
                           src={product.image}
                           alt={product.name || "Product"}
                           fill
-                          unoptimized
-                        sizes="48px"
+                          sizes="48px"
                           className="object-cover"
                         />
                       ) : (

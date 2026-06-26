@@ -1,8 +1,6 @@
-
-import CategoryGrid from "./components/categoriesgrid";
 import BannerCarousel from "./components/BannerCarousel";
-import OffersCarouselLoader from "./components/OffersCarouselLoader";
-import ReviewsComponent from "./components/ReviewsComponent";
+import CategoryGrid from "./components/categoriesgrid";
+import ReviewsLoader from "./components/ReviewsLoader";
 
 export default function Home() {
   return (
@@ -10,11 +8,8 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4">
         <BannerCarousel />
       </div>
-      <div>
-        <CategoryGrid />
-      </div>
-      <OffersCarouselLoader />
-      <ReviewsComponent />
+      <CategoryGrid />
+      <ReviewsLoader />
     </main>
   );
 }
